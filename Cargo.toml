@@ -1,0 +1,22 @@
+[package]
+name = "rustld"
+version = "0.1.0"
+authors = ["Adit Sachde <23707194+aditsachde@users.noreply.github.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+sled = "0.34.6"
+cid = "0.7.0"
+sha2 = "0.9.5"
+anyhow = "1.0"
+thiserror = "1.0.26"
+bitvec = "0.22.3"
+multihash = "0.14.0"
+libipld = { path = "./libipld" }
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+
+[profile.release]
+debug = 1

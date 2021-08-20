@@ -1,0 +1,3 @@
+[submodule "libipld"]
+	path = libipld
+	url = git@github.com:ipfs-rust/libipld.git
