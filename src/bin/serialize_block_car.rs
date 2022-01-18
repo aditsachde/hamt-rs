@@ -1,16 +1,5 @@
-use cid::{Cid, CidGeneric};
 use hamt_rs::car::Car;
-use minicbor::Encode;
-use multihash::{Code, MultihashDigest};
-use rayon::prelude::*;
-use serde::{Deserialize, Serialize};
-use serde_json::{Map, Value as JsonValue};
-use std::{
-    collections::{BTreeMap, HashMap},
-    fs::{File, OpenOptions},
-    io::{BufRead, BufReader, BufWriter},
-    path::PathBuf,
-};
+use std::{fs::OpenOptions, io::BufWriter, path::PathBuf};
 use structopt::StructOpt;
 
 #[derive(StructOpt)]
@@ -45,7 +34,7 @@ fn main() {
 
         if (count % 1000000) == 0 {
             println!("Progress: {}", count);
-        } 
+        }
     }
     println!("{} ", count);
 }

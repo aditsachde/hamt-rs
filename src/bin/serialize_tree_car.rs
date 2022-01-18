@@ -1,17 +1,5 @@
-use cid::{Cid, CidGeneric};
 use hamt_rs::car::Car;
-use indicatif::ProgressBar;
-use minicbor::Encode;
-use multihash::{Code, MultihashDigest};
-use rayon::prelude::*;
-use serde::{Deserialize, Serialize};
-use serde_json::{Map, Value as JsonValue};
-use std::{
-    collections::{BTreeMap, HashMap},
-    fs::{File, OpenOptions},
-    io::{BufRead, BufReader, BufWriter},
-    path::PathBuf,
-};
+use std::{fs::OpenOptions, io::BufWriter, path::PathBuf};
 use structopt::StructOpt;
 
 #[derive(StructOpt)]
@@ -45,14 +33,14 @@ fn main() {
     println!("Starting to write car");
 
     let mut count = 0;
-    for entry in cid_tree.iter(){
+    for entry in cid_tree.iter() {
         let (cid, block) = entry.unwrap();
         generic_car.write_block(&cid, &block).unwrap();
         count += 1;
 
         if (count % 100000) == 0 {
             println!("Progress: {}", count);
-        } 
+        }
     }
     println!("Total: {} ", count);
 }

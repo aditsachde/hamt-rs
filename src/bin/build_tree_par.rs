@@ -1,20 +1,9 @@
 use cid::Cid as ExtCid;
-use hamt_rs::{Cid, IpldHashMap, Value};
-use indicatif::{ParallelProgressIterator, ProgressBar, ProgressIterator};
-use itertools::Itertools;
-use minicbor::Encode;
-use multihash::{Code, MultihashDigest};
+use hamt_rs::{Cid, IpldHashMap};
+
 use rayon::prelude::*;
-use serde::{Deserialize, Serialize};
-use serde_json::{Map, Value as JsonValue};
-use std::{
-    collections::{BTreeMap, HashMap},
-    fs::File,
-    io::{BufRead, BufReader},
-    ops::Deref,
-    path::PathBuf,
-    time::Instant,
-};
+
+use std::{path::PathBuf, time::Instant};
 use structopt::StructOpt;
 
 #[derive(StructOpt)]
@@ -22,7 +11,7 @@ struct Cli {
     block_db: PathBuf,
     tree_db: PathBuf,
     width: u8,
-    bucket_size: u8
+    bucket_size: u8,
 }
 
 fn main() {
@@ -58,7 +47,7 @@ fn main() {
     println!("Prefixes: {:?}", iterator);
 
     let subtree_cids: Vec<(i64, Cid)> = iterator
-    .par_iter()
+        .par_iter()
         .map(|prefix| {
             let sled_tree = hash_keycid.clone();
             let mut tree = IpldHashMap::new(width.into(), bucket_size.into());

@@ -1,13 +1,7 @@
-use crate::Value;
 use anyhow::Result;
 use cid::Cid;
-use minicbor::{data::Tag, Encode};
-use multihash::{Code, MultihashDigest};
-use serde_json::Value as JsonValue;
-use std::{
-    convert::TryInto,
-    io::{self, Write},
-};
+
+use std::io::{self, Write};
 use unsigned_varint::encode::{usize, usize_buffer};
 
 const EMPTY_CAR_HEADER: &[u8] = include_bytes!("empty.car");

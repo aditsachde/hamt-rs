@@ -1,18 +1,12 @@
-use async_recursion::async_recursion;
-use bitvec::prelude::*;
-use futures::{stream::Map, StreamExt, TryStreamExt};
-use hamt_rs::{to_int, Cid};
-use ipfs_api_backend_hyper::{IpfsApi, IpfsClient, request::{DagGet, DagCodec}};
-use minicbor::Decode;
-use multihash::{Code, MultihashDigest};
-use std::ops::Deref;
+use futures::TryStreamExt;
 use hamt_rs::query::RootMapBlock;
+use ipfs_api_backend_hyper::{IpfsApi, IpfsClient};
 use structopt::StructOpt;
 
 #[derive(StructOpt)]
 struct Cli {
     root: String,
-    key: String
+    key: String,
 }
 
 #[tokio::main]
@@ -31,7 +25,7 @@ async fn main() {
 
     let root: RootMapBlock = minicbor::decode(&block).unwrap();
 
-    let response = root.get_key(b"/authors/OL100025A").await;
+    let response = root.get_key(args.key.as_bytes()).await;
 
     println!("{:?}", response);
 }

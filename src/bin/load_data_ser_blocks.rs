@@ -1,13 +1,10 @@
 use cid::Cid;
 use hamt_rs::{car::Car, Value};
-use indicatif::{ParallelProgressIterator, ProgressIterator};
-use minicbor::Encode;
+use indicatif::ParallelProgressIterator;
 use multihash::{Code, MultihashDigest};
 use rayon::prelude::*;
-use serde::{Deserialize, Serialize};
-use serde_json::{Map, Value as JsonValue};
+
 use std::{
-    collections::{BTreeMap, HashMap},
     fs::{File, OpenOptions},
     io::{BufRead, BufReader, BufWriter},
     path::PathBuf,
@@ -87,7 +84,7 @@ fn main() {
             // Json is the 5th column (so move 3 columns)
             let json = record.nth(2).unwrap();
             /**************** MODIFY ABOVE *****************/
-        
+
             let record = Value(serde_json::from_str(json).unwrap());
             let block = minicbor::to_vec(record).unwrap();
 

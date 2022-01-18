@@ -8,13 +8,10 @@ use ::cid::Cid as ExtCid;
 use anyhow::{anyhow, Result};
 
 use bitvec::prelude::*;
-use minicbor::{
-    data::{Tag, Type},
-    decode, encode, {Decode, Encode},
-};
+use minicbor::{encode, Encode};
 use multihash::{Code, MultihashDigest};
 use sled::Tree;
-use std::{fmt::Display, marker::PhantomData, os::unix::prelude::OsStrExt};
+
 pub use value::Value;
 
 #[derive(Debug)]
@@ -85,7 +82,7 @@ impl Node {
         let index = &digest[offset..(offset + opts.width)];
         let index = to_int(index);
 
-        let test = self.elements.get_mut(index);
+        let _test = self.elements.get_mut(index);
 
         match self.elements.get_mut(index).map(|x| x.as_mut()).flatten() {
             Some(e) => match e {
@@ -124,7 +121,7 @@ impl Node {
     fn new(width: usize) -> Self {
         let node_capcity = 2usize.pow(width.try_into().unwrap());
         Node {
-            elements: (0..node_capcity).map(|x| None).collect(),
+            elements: (0..node_capcity).map(|_x| None).collect(),
         }
     }
 

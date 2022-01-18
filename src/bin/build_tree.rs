@@ -1,19 +1,7 @@
 use cid::Cid as ExtCid;
-use hamt_rs::{Cid, IpldHashMap, Value};
+use hamt_rs::{Cid, IpldHashMap};
 use indicatif::ProgressIterator;
-use minicbor::Encode;
-use multihash::{Code, MultihashDigest};
-use rayon::prelude::*;
-use serde::{Deserialize, Serialize};
-use serde_json::{Map, Value as JsonValue};
-use std::{
-    collections::{BTreeMap, HashMap},
-    fs::File,
-    io::{BufRead, BufReader},
-    ops::Deref,
-    path::PathBuf,
-    time::Instant
-};
+use std::{path::PathBuf, time::Instant};
 use structopt::StructOpt;
 
 #[derive(StructOpt)]
@@ -21,7 +9,7 @@ struct Cli {
     block_db: PathBuf,
     tree_db: PathBuf,
     width: u8,
-    bucket_size: u8
+    bucket_size: u8,
 }
 
 fn main() {

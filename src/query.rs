@@ -1,7 +1,7 @@
 use crate::{to_int, Cid};
 use async_recursion::async_recursion;
 use bitvec::prelude::*;
-use futures::{stream::Map, StreamExt, TryStreamExt};
+use futures::TryStreamExt;
 use ipfs_api_backend_hyper::{IpfsApi, IpfsClient};
 use minicbor::Decode;
 use multihash::{Code, MultihashDigest};
@@ -117,7 +117,7 @@ impl<'b> Decode<'b> for MapBlock {
         d.array()?;
         let map = d.bytes()?;
         let map: &BitSlice<Msb0, u8> = BitSlice::from_slice(map).unwrap();
-        
+
         let mut elements: Vec<Option<Element>> = vec![];
         let mut cids = d.array_iter::<Element>().unwrap();
 

@@ -1,11 +1,11 @@
 use ::cid::Cid as ExtCid;
-use anyhow::{anyhow, Result};
-use bitvec::prelude::*;
+use anyhow::Result;
+
 use minicbor::{
     data::{Tag, Type},
     decode, encode, {Decode, Encode},
 };
-use multihash::{Code, MultihashDigest};
+
 use std::fmt::Display;
 
 #[derive(Debug, Clone)]
