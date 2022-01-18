@@ -7,35 +7,47 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug executable 'rustld'",
+            "name": "Query Debug",
             "cargo": {
                 "args": [
                     "build",
-                    "--bin=rustld",
-                    "--package=rustld"
-                ],
-                "filter": {
-                    "name": "rustld",
-                    "kind": "bin"
-                }
+                    "--bin",
+                    "query_key"
+                ]
             },
-            "args": [],
-            "cwd": "${workspaceFolder}"
+            "program": "${cargo:program}",
+            "args": []
         },
+
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug unit tests in executable 'rustld'",
+            "name": "Build Tree Debug",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin",
+                    "build_tree"
+                ]
+            },
+            "program": "${cargo:program}",
+            "args": ["sync_ignore/sled.db"]
+        },
+        
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in library 'rustld'",
             "cargo": {
                 "args": [
                     "test",
                     "--no-run",
-                    "--bin=rustld",
+                    "--lib",
                     "--package=rustld"
                 ],
                 "filter": {
                     "name": "rustld",
-                    "kind": "bin"
+                    "kind": "lib"
                 }
             },
             "args": [],
